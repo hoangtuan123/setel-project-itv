@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+import { OrderModule } from './order/order.module';
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
@@ -10,11 +13,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
-        entities: [__dirname + '/common/entities/*{.ts,.js}'],
+        entities: [__dirname + '/*/*.model{.ts,.js}'],
         synchronize: false,
         logging: true,
       }),
     }),
+    OrderModule
   ],
   controllers: [],
   providers: [],

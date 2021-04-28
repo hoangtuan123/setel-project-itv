@@ -4,10 +4,11 @@ import {
   Index,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { OrderStatusEnum } from './order.enum';
 
-@Index('order_pkey', ['id'], { unique: true })
+@Index('orders_pkey', ['id'], { unique: true })
 @Entity('orders', { schema: 'public' })
-export class Order {
+export class Orders {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   id: number;
 
@@ -16,4 +17,7 @@ export class Order {
 
   @Column('integer', { name: 'amount' })
   amount: number;
+
+  @Column('character varying', { name: 'status', length: 10, default: OrderStatusEnum.created })
+  status: OrderStatusEnum;
 }

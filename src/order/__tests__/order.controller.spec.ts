@@ -1,22 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from '../order.controller';
-import { AppService } from '../order.service';
+import { OrderController } from '../order.controller';
+import { OrderService } from '../order.service';
 
 describe('AppController', () => {
-  let appController: AppController;
+  let orderController: OrderController;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
+      controllers: [OrderController],
+      providers: [OrderService],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    orderController = app.get<OrderController>(OrderController);
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "Hello World!"',async () => {
+      const orderId = '_orderId';
+      expect(await orderController.getOrderStatus(orderId)).toBe({status: 'created'});
     });
   });
 });
