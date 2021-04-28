@@ -10,4 +10,8 @@ export class CreateOrderValdator {
   @IsDefined()
   @ApiProperty()
   amount: number;
+
+  @ApiProperty()
+  @IsDefined()
+  cardInfo: string;
 }

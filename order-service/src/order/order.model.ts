@@ -1,8 +1,10 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   Index,
   PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from 'typeorm';
 import { OrderStatusEnum } from './order.enum';
 
@@ -18,6 +20,16 @@ export class Orders {
   @Column('integer', { name: 'amount' })
   amount: number;
 
-  @Column('character varying', { name: 'status', length: 10, default: OrderStatusEnum.created })
+  @Column('character varying', {
+    name: 'status',
+    length: 10,
+    default: OrderStatusEnum.created
+  })
   status: OrderStatusEnum;
+
+  @CreateDateColumn()
+  createdAt: string;
+
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt: Date;
 }

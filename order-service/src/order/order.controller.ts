@@ -27,14 +27,14 @@ export class OrderController {
   @Get(":id/status")
   @ApiOperation({ summary: 'get order status by id' })
   @HttpCode(200)
-  getOrderStatus(@Param('id') id: string): Promise<{status: string}> {
+  getOrderStatus(@Param('id') id: number): Promise<{status: string}> {
     return this.orderService.getStatus(id);
   }
 
   @Patch(":id/cancel")
   @ApiOperation({ summary: 'cancel order by id' })
   @HttpCode(204)
-  async cancelOrder(@Param('id') id: string): Promise<void> {
+  async cancelOrder(@Param('id') id: number): Promise<void> {
     await this.orderService.cancell(id);
   }
 }

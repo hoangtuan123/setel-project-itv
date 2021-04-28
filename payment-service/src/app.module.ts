@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { OrderModule } from './order/order.module';
+import { PaymentModule } from "./payment/payment.module";
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -14,11 +15,11 @@ import { OrderModule } from './order/order.module';
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         entities: [__dirname + '/*/*.model{.ts,.js}'],
-        synchronize: false,
+        synchronize: true,
         logging: true,
       }),
     }),
-    OrderModule
+    PaymentModule
   ],
   controllers: [],
   providers: [],
