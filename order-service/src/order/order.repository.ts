@@ -30,7 +30,7 @@ export class OrderRepository {
     await this.orderRepository.update(
       {
         status: OrderStatusEnum.confirmed,
-        updatedAt: LessThan(new Date((new Date().getTime() - +process.env.XAMOUNT)/1000))
+        updatedAt: LessThan(new Date((new Date().getTime() - +process.env.XAMOUNT)).toUTCString())
       },
       {
         status: OrderStatusEnum.delivered

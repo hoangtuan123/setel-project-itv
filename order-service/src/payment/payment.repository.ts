@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import axios from 'axios';
 import { PaymentStatus } from './payment.enum';
 import { PaymentRequest } from './payment.interface';
@@ -13,6 +13,9 @@ export class PaymentRepository {
       paymentRequest
     );
     const data = result.data;
+
+    Logger.log(data, 'Log data result from payment service');
+
     if (data.status === PaymentStatus.Succeed) {
       return true;
     }
