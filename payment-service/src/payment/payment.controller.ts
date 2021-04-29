@@ -10,9 +10,9 @@ export class PaymentController {
 
   @Post()
   @ApiOperation({ summary: 'create payment' })
-  @HttpCode(201)
-  async createPayment(@Body() body: CreatePayemt): Promise<void> {
-    await this.paymentService.create(body);
+  @HttpCode(200)
+  async createPayment(@Body() body: CreatePayemt): Promise<{status: string, paymentId: number | null}> {
+    return await this.paymentService.create(body);
   }
 
 }

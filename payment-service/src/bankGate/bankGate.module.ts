@@ -6,6 +6,7 @@ import { BankGateRepository } from './bankGate.repository';
     imports: [
     ],
     controllers: [],
-    providers: [BankGateRepository]
+    providers: [BankGateRepository],
+    exports: [BankGateRepository]
 })
-export class OrderModule { }
+export class BankGateModule { }

@@ -15,7 +15,7 @@ import { PaymentModule } from "./payment/payment.module";
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         entities: [__dirname + '/*/*.model{.ts,.js}'],
-        synchronize: true,
+        synchronize: false,
         logging: true,
       }),
     }),

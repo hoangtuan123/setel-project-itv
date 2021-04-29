@@ -23,7 +23,7 @@ export class BankGateRepository {
       return {
         ...result,
         status: PaymentStatus.Succeed,
-        externalTransactionId: Date.now()
+        externalTransactionId: Date.now().toString()
       };
     }
     return {
