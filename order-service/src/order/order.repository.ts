@@ -9,28 +9,30 @@ import { Orders } from './order.model';
 export class OrderRepository {
   constructor(
     @InjectRepository(Orders)
-    private readonly orderRepository: Repository<Orders>
+    private readonly orderInstance: Repository<Orders>
   ) {}
 
   public getById(id: number): Promise<Orders | undefined> {
-    return this.orderRepository.findOne(id);
+    return this.orderInstance.findOne(id);
   }
-  async create(order: OrderCreation): Promise<Orders> {
-    return await this.orderRepository.save(order);
+  async create(order: Omit<OrderCreation, 'cardInfo'>): Promise<Orders> {
+    return await this.orderInstance.save(order);
   }
   async updateStatusById(id: number, status: OrderStatusEnum): Promise<void> {
-    await this.orderRepository.update(id, { status });
+    await this.orderInstance.update(id, { status });
   }
 
   async getAll(): Promise<Orders[]> {
-    return await this.orderRepository.find();
+    return await this.orderInstance.find();
   }
 
   async updateDeliveredStatus(): Promise<void> {
-    await this.orderRepository.update(
+    await this.orderInstance.update(
       {
         status: OrderStatusEnum.confirmed,
-        updatedAt: LessThan(new Date((new Date().getTime() - +process.env.XAMOUNT)).toUTCString())
+        updatedAt: LessThan(
+          new Date(new Date().getTime() - +process.env.XAMOUNT).toUTCString()
+        )
       },
       {
         status: OrderStatusEnum.delivered

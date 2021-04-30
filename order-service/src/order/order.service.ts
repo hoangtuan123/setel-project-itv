@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { MessageCodeError } from 'src/common/message-code-error';
-import { PaymentRepository } from 'src/payment/payment.repository';
+import { MessageCodeError } from '../common/message-code-error';
+import { PaymentRepository } from '../payment/payment.repository';
 import { OrderStatusEnum } from './order.enum';
 import { OrderCreation } from './order.interface';
 import { Orders } from './order.model';
 import { OrderRepository } from './order.repository';
+import * as lodash from 'lodash';
 
 @Injectable()
 export class OrderService {
@@ -24,7 +25,10 @@ export class OrderService {
   }
 
   async create(orderRequest: OrderCreation): Promise<void> {
-    const order = await this.orderRepository.create(orderRequest);
+    const order = await this.orderRepository.create({
+      name: orderRequest.name,
+      amount: orderRequest.amount
+    });
     const paymentResult = await this.paymentRepository.request({
       cardInfo: orderRequest.cardInfo,
       amount: order.amount,
@@ -43,7 +47,7 @@ export class OrderService {
     }
   }
 
-  async cancell(id: number): Promise<void> {
+  async cancel(id: number): Promise<void> {
     const order = await this.orderRepository.getById(id);
     if (!order) {
       throw new MessageCodeError('order:id:notfound');
@@ -61,8 +65,7 @@ export class OrderService {
     return await this.orderRepository.getAll();
   }
 
-  async processDelivered(){
-    await this.orderRepository.updateDeliveredStatus()
+  async processDelivered() {
+    await this.orderRepository.updateDeliveredStatus();
   }
-
 }

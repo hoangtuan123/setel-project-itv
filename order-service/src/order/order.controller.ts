@@ -1,6 +1,13 @@
-import { Body, Controller, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { OrderCreation } from './order.interface';
 import { Orders } from './order.model';
 import { OrderService } from './order.service';
 import { CreateOrderValdator } from './order.validator';
@@ -24,17 +31,17 @@ export class OrderController {
     await this.orderService.create(body);
   }
 
-  @Get(":id/status")
+  @Get(':id/status')
   @ApiOperation({ summary: 'get order status by id' })
   @HttpCode(200)
-  getOrderStatus(@Param('id') id: number): Promise<{status: string}> {
+  getOrderStatus(@Param('id') id: number): Promise<{ status: string }> {
     return this.orderService.getStatus(id);
   }
 
-  @Patch(":id/cancel")
+  @Patch(':id/cancel')
   @ApiOperation({ summary: 'cancel order by id' })
   @HttpCode(204)
   async cancelOrder(@Param('id') id: number): Promise<void> {
-    await this.orderService.cancell(id);
+    await this.orderService.cancel(id);
   }
 }
