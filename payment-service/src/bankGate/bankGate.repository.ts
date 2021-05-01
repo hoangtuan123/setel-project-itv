@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PaymentStatus } from 'src/payment/payment.enum';
+import { PaymentStatus } from '../payment/payment.enum';
 
 @Injectable()
 export class BankGateRepository {
