@@ -10,4 +10,4 @@ COPY . .
 
 RUN npm run build
 
-CMD [ "node", "/app/dist/src/main.js" ]
+CMD npm run typeorm:run && node /app/dist/src/main.js

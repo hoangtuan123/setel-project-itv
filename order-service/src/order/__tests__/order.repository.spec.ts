@@ -1,11 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PaymentRepository } from '../../payment/payment.repository';
-import { MessageCodeError } from '../../common/message-code-error';
 import { PaymentModule } from '../../payment/payment.module';
 import { OrderStatusEnum } from '../order.enum';
 import { OrderRepository } from '../order.repository';
-import { OrderService } from '../order.service';
-import { PaymentStatus } from '../../payment/payment.enum';
 import { Repository } from 'typeorm';
 import { Orders } from '../order.model';
 import { getRepositoryToken } from '@nestjs/typeorm';
